@@ -3,33 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piket & Struktur Kelas - XII RPL 1</title>
-    <!-- Google Fonts & FontAwesome -->
+    <title>Piket & Struktur Kelas - XI DKV 3</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Link CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Header / Navbar -->
     <header class="header">
         <div class="logo-container">
             <div class="logo-badge"><i class="fa-solid fa-graduation-cap"></i></div>
             <div>
-                <h1>XII RPL 1</h1>
+                <h1>XI DKV 3</h1>
                 <p>Sistem Informasi Kelas & Piket</p>
             </div>
         </div>
-        <div class="live-clock" id="liveClock">
-            <i class="fa-regular fa-clock"></i> <span id="timeText">Loading...</span>
+        <div class="header-actions">
+            <button class="btn-edit-mode" onclick="toggleEditMode()" id="editModeBtn">
+                <i class="fa-solid fa-pen-to-square"></i> Mode Edit
+            </button>
+            <div class="live-clock" id="liveClock">
+                <i class="fa-regular fa-clock"></i> <span id="timeText">Loading...</span>
+            </div>
         </div>
     </header>
 
-    <!-- Main Content Container -->
     <main class="main-container">
 
-        <!-- Banner / Status Hari Ini -->
         <section class="banner-card">
             <div class="banner-content">
                 <span class="badge-status" id="dayBadge">Hari Ini</span>
@@ -41,7 +41,6 @@
             </div>
         </section>
 
-        <!-- Grid Layout Utama -->
         <div class="grid-layout">
             
             <!-- Kolom Kiri: Jadwal Piket Mingguan -->
@@ -58,48 +57,34 @@
                 </div>
                 <div class="card-body">
                     <ul class="piket-list" id="piketList">
-                        <!-- Data akan dimasukkan oleh Javascript -->
+                        <!-- Data Piket -->
                     </ul>
+                    <!-- Tombol Tambah Anggota Piket (Hanya Muncul saat Mode Edit Aktif) -->
+                    <div id="addPiketContainer" style="display: none; margin-top: 15px;">
+                        <button class="btn-action" onclick="openAddPiketModal()">
+                            <i class="fa-solid fa-user-plus"></i> Tambah Anggota Piket Hari Ini
+                        </button>
+                    </div>
                 </div>
             </section>
 
-            <!-- Kolom Kanan: Struktur Kelas (Foto & Anggota) -->
+            <!-- Kolom Kanan: Struktur Kelas -->
             <section class="card structure-card">
                 <div class="card-header">
                     <h3><i class="fa-solid fa-users-rectangle"></i> Struktur Organisasi Kelas</h3>
                 </div>
                 <div class="card-body">
-                    <!-- Foto Struktur Kelas / Bagan -->
-                    <div class="structure-photo-wrapper" onclick="openModal()">
+                    <div class="structure-photo-wrapper" onclick="handlePhotoClick()">
                         <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Struktur Kelas" id="structureImg">
-                        <div class="photo-overlay">
+                        <div class="photo-overlay" id="photoOverlayText">
                             <i class="fa-solid fa-magnifying-glass-plus"></i>
-                            <span>Klik untuk Perbesar Foto</span>
+                            <span id="overlayLabel">Klik untuk Perbesar Foto</span>
                         </div>
                     </div>
 
                     <!-- Detail Pengurus Inti -->
-                    <div class="core-team">
-                        <div class="team-item">
-                            <span class="role">Wali Kelas</span>
-                            <span class="name">Drs. Budi Santoso, M.Kom</span>
-                        </div>
-                        <div class="team-item">
-                            <span class="role">Ketua Kelas</span>
-                            <span class="name">Ahmad Fauzi</span>
-                        </div>
-                        <div class="team-item">
-                            <span class="role">Wakil Ketua</span>
-                            <span class="name">Siti Aminah</span>
-                        </div>
-                        <div class="team-item">
-                            <span class="role">Sekretaris</span>
-                            <span class="name">Dewi Lestari</span>
-                        </div>
-                        <div class="team-item">
-                            <span class="role">Bendahara</span>
-                            <span class="name">Rizky Ramadhan</span>
-                        </div>
+                    <div class="core-team" id="coreTeamList">
+                        <!-- Render via JS -->
                     </div>
                 </div>
             </section>
@@ -107,18 +92,76 @@
         </div>
     </main>
 
-    <!-- Modal untuk Zoom Foto Struktur Kelas -->
+    <!-- Modal Zoom Foto -->
     <div class="modal" id="photoModal" onclick="closeModal()">
         <span class="close-modal">&times;</span>
-        <img class="modal-content" id="imgModalTarget" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80">
+        <img class="modal-content" id="imgModalTarget" src="">
     </div>
 
-    <!-- Footer -->
+    <!-- Modal Edit Pengurus Inti -->
+    <div class="modal" id="editTeamModal">
+        <div class="modal-box">
+            <h3>Edit Pengurus Kelas</h3>
+            <form id="editTeamForm" onsubmit="saveTeamMember(event)">
+                <input type="hidden" id="editRoleKey">
+                <div class="form-group">
+                    <label id="labelEditRoleTitle">Jabatan</label>
+                    <input type="text" id="editNameInput" required placeholder="Masukkan nama lengkap...">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeEditTeamModal()">Batal</button>
+                    <button type="submit" class="btn-save">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Tambah/Edit Piket -->
+    <div class="modal" id="editPiketModal">
+        <div class="modal-box">
+            <h3>Tambah Anggota Piket</h3>
+            <form id="editPiketForm" onsubmit="saveNewPiket(event)">
+                <div class="form-group">
+                    <label>Nama Siswa</label>
+                    <input type="text" id="piketNameInput" required placeholder="Contoh: Ahmad Fauzi">
+                </div>
+                <div class="form-group">
+                    <label>Absen / Keterangan</label>
+                    <input type="text" id="piketInfoInput" required placeholder="Contoh: Absen 01">
+                </div>
+                <div class="form-group">
+                    <label>Peran / Jabatan Kelompok</label>
+                    <input type="text" id="piketRoleInput" required placeholder="Contoh: Ketua Kelompok">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeAddPiketModal()">Batal</button>
+                    <button type="submit" class="btn-save">Tambah</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Ganti Foto Struktur Kelas -->
+    <div class="modal" id="changePhotoModal">
+        <div class="modal-box">
+            <h3>Ganti Foto Struktur Kelas</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Masukkan URL gambar atau link foto baru:</p>
+            <form onsubmit="saveNewPhoto(event)">
+                <div class="form-group">
+                    <input type="url" id="photoUrlInput" required placeholder="https://contoh.com/foto.jpg">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeChangePhotoModal()">Batal</button>
+                    <button type="submit" class="btn-save">Ganti Foto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <footer class="footer">
         <p>Dibuat dengan <i class="fa-solid fa-heart" style="color: #ff5252;"></i> untuk kemajuan Kelas SMK Hebat | &copy; 2026</p>
     </footer>
 
-    <!-- Link JS -->
     <script src="script.js"></script>
 </body>
 </html>
