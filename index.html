@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piket & Struktur Kelas - XI DKV 3</title>
+    <title>Piket & Struktur Kelas - XII RPL 1</title>
     <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,7 +17,7 @@
         <div class="logo-container">
             <div class="logo-badge"><i class="fa-solid fa-graduation-cap"></i></div>
             <div>
-                <h1>XI DKV 3</h1>
+                <h1>XII RPL 1</h1>
                 <p>Sistem Informasi Kelas & Piket</p>
             </div>
         </div>
@@ -53,5 +53,72 @@
                         <button class="tab-btn" data-day="Selasa">Selasa</button>
                         <button class="tab-btn" data-day="Rabu">Rabu</button>
                         <button class="tab-btn" data-day="Kamis">Kamis</button>
-                        <button class="tab-btn" data-day="Jumat">Jumat
-              
+                        <button class="tab-btn" data-day="Jumat">Jumat</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ul class="piket-list" id="piketList">
+                        <!-- Data akan dimasukkan oleh Javascript -->
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Kolom Kanan: Struktur Kelas (Foto & Anggota) -->
+            <section class="card structure-card">
+                <div class="card-header">
+                    <h3><i class="fa-solid fa-users-rectangle"></i> Struktur Organisasi Kelas</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Foto Struktur Kelas / Bagan -->
+                    <div class="structure-photo-wrapper" onclick="openModal()">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Struktur Kelas" id="structureImg">
+                        <div class="photo-overlay">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            <span>Klik untuk Perbesar Foto</span>
+                        </div>
+                    </div>
+
+                    <!-- Detail Pengurus Inti -->
+                    <div class="core-team">
+                        <div class="team-item">
+                            <span class="role">Wali Kelas</span>
+                            <span class="name">Drs. Budi Santoso, M.Kom</span>
+                        </div>
+                        <div class="team-item">
+                            <span class="role">Ketua Kelas</span>
+                            <span class="name">Ahmad Fauzi</span>
+                        </div>
+                        <div class="team-item">
+                            <span class="role">Wakil Ketua</span>
+                            <span class="name">Siti Aminah</span>
+                        </div>
+                        <div class="team-item">
+                            <span class="role">Sekretaris</span>
+                            <span class="name">Dewi Lestari</span>
+                        </div>
+                        <div class="team-item">
+                            <span class="role">Bendahara</span>
+                            <span class="name">Rizky Ramadhan</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Modal untuk Zoom Foto Struktur Kelas -->
+    <div class="modal" id="photoModal" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="imgModalTarget" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80">
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Dibuat dengan <i class="fa-solid fa-heart" style="color: #ff5252;"></i> untuk kemajuan Kelas SMK Hebat | &copy; 2026</p>
+    </footer>
+
+    <!-- Link JS -->
+    <script src="script.js"></script>
+</body>
+</html>
