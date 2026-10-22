@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piket & Struktur Kelas - XI DKV 3</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="logo-container">
+            <div class="logo-badge"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div>
+                <h1>XI DKV 3</h1>
+                <p>Sistem Informasi Kelas & Piket</p>
+            </div>
+        </div>
+        <div class="live-clock" id="liveClock">
+            <i class="fa-regular fa-clock"></i> <span id="timeText">Loading...</span>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-container">
+
+        <!-- Banner / Status Hari Ini -->
+        <section class="banner-card">
+            <div class="banner-content">
+                <span class="badge-status" id="dayBadge">Hari Ini</span>
+                <h2 id="todayTitle">Memuat Jadwal Piket...</h2>
+                <p id="todayDesc">Pastikan kelompok piket hari ini bertugas dengan penuh tanggung jawab ya! 🧹✨</p>
+            </div>
+            <div class="banner-illustration">
+                <i class="fa-solid fa-broom-ball"></i>
+            </div>
+        </section>
+
+        <!-- Grid Layout Utama -->
+        <div class="grid-layout">
+            
+            <!-- Kolom Kiri: Jadwal Piket Mingguan -->
+            <section class="card schedule-card">
+                <div class="card-header">
+                    <h3><i class="fa-solid fa-calendar-days"></i> Jadwal Piket Mingguan</h3>
+                    <div class="day-tabs" id="dayTabs">
+                        <button class="tab-btn active" data-day="Senin">Senin</button>
+                        <button class="tab-btn" data-day="Selasa">Selasa</button>
+                        <button class="tab-btn" data-day="Rabu">Rabu</button>
+                        <button class="tab-btn" data-day="Kamis">Kamis</button>
+                        <button class="tab-btn" data-day="Jumat">Jumat
+              
